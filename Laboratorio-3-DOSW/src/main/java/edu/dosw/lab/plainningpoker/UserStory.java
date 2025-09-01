@@ -1,4 +1,4 @@
-package planningpoker;
+package edu.dosw.lab.planningpoker;
 
 public class UserStory {
     private String id;

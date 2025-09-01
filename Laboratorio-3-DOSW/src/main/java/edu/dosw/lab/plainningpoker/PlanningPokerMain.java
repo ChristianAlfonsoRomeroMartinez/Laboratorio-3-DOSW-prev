@@ -1,4 +1,4 @@
-package planningpoker;
+package edu.dosw.lab.planningpoker;
 
 import java.util.List;
 import java.util.Scanner;

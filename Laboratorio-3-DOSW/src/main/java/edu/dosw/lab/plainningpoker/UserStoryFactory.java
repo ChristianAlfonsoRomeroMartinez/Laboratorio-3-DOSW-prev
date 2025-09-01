@@ -1,4 +1,4 @@
-package planningpoker;
+package edu.dosw.lab.planningpoker;
 
 import java.util.ArrayList;
 import java.util.List;

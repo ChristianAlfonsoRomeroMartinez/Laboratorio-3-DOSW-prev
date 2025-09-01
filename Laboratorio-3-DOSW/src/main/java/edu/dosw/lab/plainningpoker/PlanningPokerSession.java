@@ -1,6 +1,12 @@
-package planningpoker;
+package edu.dosw.lab.planningpoker;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
 import edu.dosw.lab.planningpoker.TeamMemberFactory.TeamMember;
 
 public class PlanningPokerSession {

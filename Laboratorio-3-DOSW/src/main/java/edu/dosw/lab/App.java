@@ -1,6 +1,6 @@
 package edu.dosw.lab;
 
-import PlanningPokerMain;
+import edu.dosw.lab.planningpoker.PlanningPokerMain;
 
 
 /**
