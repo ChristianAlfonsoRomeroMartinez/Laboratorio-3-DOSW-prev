@@ -7,9 +7,9 @@ import java.util.Scanner;
 public class TeamMemberFactory {
     // Matriz con información de los miembros del equipo [nombre, rol]
     private static final String[][] MIEMBROS_DATOS = {
-        {"Ana", "Desarrolladora"},
+        {"Juana", "Desarrolladora"},
         {"Carlos", "Tester"},
-        {"Diana", "Analista"}
+        {"Christian", "Analista"}
     };
     
     public static List<TeamMember> createTeamMembers(Scanner scanner) {
