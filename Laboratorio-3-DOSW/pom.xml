@@ -1,5 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!--
+    Este es el archivo de configuración del proyecto Maven.
+    Define las dependencias, el grupo, el artifactId y otras configuraciones.
+    Es como el "cerebro" del proyecto que le dice a Maven qué hacer.
+  -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.dosw.lab</groupId>
   <artifactId>Laboratorio-3-DOSW</artifactId>
@@ -9,6 +14,10 @@
   <description>Project for Lab03</description>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <!--
+      Esta es la dependencia de JUnit para hacer pruebas unitarias.
+      Nos permite escribir y ejecutar tests para verificar que el código funcione bien.
+    -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

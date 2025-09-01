@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Clase principal para ejecutar la aplicación de Planning Poker.
- * Contiene toda la lógica de inicialización y ejecución.
+ * Esta es la clase principal del sistema de Planning Poker.
+ * Aquí se inicia todo el proceso de estimación de historias de usuario.
+ * Es como el "jefe" que organiza la reunión y hace que todo funcione.
  */
 public class PlanningPokerMain {
     
     /**
-     * Método que inicia la sesión de Planning Poker completa
+     * Este método arranca toda la sesión de Planning Poker.
+     * Prepara las historias, crea la sesión y la ejecuta.
+     * Al final cierra todo ordenadamente.
      */
     public static void ejecutar() {
         Scanner scanner = new Scanner(System.in);
@@ -31,8 +34,9 @@ public class PlanningPokerMain {
     }
     
     /**
-     * Obtiene las historias de usuario para la sesión
-     * @return Lista de historias de usuario
+     * Este método junta todas las historias de usuario que vamos a estimar.
+     * Toma las historias predefinidas de Bankify y agrega una extra.
+     * @return Una lista con todas las historias listas para votar
      */
     private static List<UserStory> obtenerHistoriasUsuario() {
         // Obtener historias predefinidas de Bankify
@@ -51,7 +55,8 @@ public class PlanningPokerMain {
     }
     
     /**
-     * Punto de entrada alternativo si se quiere ejecutar directamente esta clase
+     * Este es un método extra por si alguien quiere ejecutar esta clase directamente.
+     * Básicamente llama al método ejecutar() que hace todo el trabajo.
      */
     public static void main(String[] args) {
         ejecutar();

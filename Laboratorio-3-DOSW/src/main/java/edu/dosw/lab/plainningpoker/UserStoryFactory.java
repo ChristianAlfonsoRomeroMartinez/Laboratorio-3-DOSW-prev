@@ -3,6 +3,11 @@ package edu.dosw.lab.planningpoker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase es una fábrica para crear historias de usuario.
+ * Tiene historias predefinidas de Bankify y puede crear historias personalizadas.
+ * Usa el patrón Factory para organizar la creación de historias de manera centralizada.
+ */
 public class UserStoryFactory {
     // Matriz con historias predefinidas [id, actor, objetivo, beneficio, atributoCalidad]
     private static final String[][] HISTORIAS_BANKIFY = {
@@ -14,6 +19,11 @@ public class UserStoryFactory {
     };
     
     // Crea y devuelve las historias de usuario predefinidas para Bankify
+    /**
+     * Crea y devuelve las historias de usuario predefinidas para Bankify.
+     * Estas son las historias base que siempre están disponibles.
+     * @return Una lista con las 5 historias predefinidas de Bankify
+     */
     public static List<UserStory> createBankifyUserStories() {
         List<UserStory> historias = new ArrayList<>();
         for (String[] datos : HISTORIAS_BANKIFY) {
@@ -36,6 +46,16 @@ public class UserStoryFactory {
     }
     
     // Método para crear una historia individual
+    /**
+     * Método para crear una historia individual con parámetros específicos.
+     * Útil para agregar historias personalizadas o adicionales.
+     * @param id El identificador único de la historia
+     * @param actor Quién quiere la funcionalidad
+     * @param objetivo Qué quiere hacer
+     * @param beneficio Por qué lo quiere
+     * @param atributoCalidad Qué atributo de calidad se afecta
+     * @return Una nueva instancia de UserStory con los datos proporcionados
+     */
     public static UserStory createUserStory(String id, String actor, String objetivo, 
                                            String beneficio, String atributoCalidad) {
         return new UserStory(id, actor, objetivo, beneficio, atributoCalidad);

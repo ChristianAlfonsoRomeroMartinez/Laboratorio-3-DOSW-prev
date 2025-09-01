@@ -9,17 +9,33 @@ import java.util.Set;
 
 import edu.dosw.lab.planningpoker.TeamMemberFactory.TeamMember;
 
+/**
+ * Esta clase maneja toda la sesión de Planning Poker.
+ * Es como el moderador de la reunión: organiza las votaciones,
+ * verifica si hay consenso y muestra los resultados.
+ * Usa un patrón simple de sesión para mantener todo ordenado.
+ */
 public class PlanningPokerSession {
     private List<UserStory> historias;
     private List<TeamMember> miembros;
     private Scanner scanner;
     
+    /**
+     * Constructor que prepara la sesión con las historias y el scanner.
+     * También crea los miembros del equipo usando la fábrica.
+     * @param historias Lista de historias a estimar
+     * @param scanner Para leer las entradas del usuario
+     */
     public PlanningPokerSession(List<UserStory> historias, Scanner scanner) {
         this.historias = historias;
         this.scanner = scanner;
         this.miembros = TeamMemberFactory.createTeamMembers(scanner);
     }
     
+    /**
+     * Este método inicia la sesión completa.
+     * Muestra las reglas, estima cada historia y al final muestra el resumen.
+     */
     public void iniciarSesion() {
         System.out.println("\n=== SESIÓN DE PLANNING POKER ===");
         System.out.println("Valores válidos: 1, 2, 3, 5, 8, 13");
