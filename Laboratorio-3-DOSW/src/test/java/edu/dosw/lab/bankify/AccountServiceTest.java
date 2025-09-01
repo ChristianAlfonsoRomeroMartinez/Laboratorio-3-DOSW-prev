@@ -1,10 +1,12 @@
 package edu.dosw.lab.bankify;
 
 import edu.dosw.lab.bankify.domain.Client;
+import edu.dosw.lab.bankify.domain.Bank;
 import edu.dosw.lab.bankify.repository.AccountRepository;
 import edu.dosw.lab.bankify.repository.BankRepository;
 import edu.dosw.lab.bankify.service.AccountService;
 import edu.dosw.lab.bankify.service.AccountValidator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +19,8 @@ public class AccountServiceTest {
     @BeforeEach
     void setup() {
         BankRepository bankRepository = new BankRepository();
-        bankRepository.save(new com.bankify.domain.Bank("01", "BANCOLOMBIA"));
-        bankRepository.save(new com.bankify.domain.Bank("02", "DAVIVIENDA"));
+        bankRepository.save(new Bank("01", "BANCOLOMBIA"));
+        bankRepository.save(new Bank("02", "DAVIVIENDA"));
 
         AccountRepository accountRepository = new AccountRepository();
         AccountValidator validator = new AccountValidator(bankRepository);
