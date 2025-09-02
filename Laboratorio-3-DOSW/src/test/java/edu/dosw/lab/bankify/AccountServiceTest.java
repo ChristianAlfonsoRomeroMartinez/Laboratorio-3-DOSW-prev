@@ -2,6 +2,7 @@ package edu.dosw.lab.bankify;
 
 import edu.dosw.lab.bankify.domain.Client;
 import edu.dosw.lab.bankify.domain.Bank;
+import edu.dosw.lab.bankify.domain.Account;
 import edu.dosw.lab.bankify.repository.AccountRepository;
 import edu.dosw.lab.bankify.repository.BankRepository;
 import edu.dosw.lab.bankify.service.AccountService;
@@ -30,7 +31,7 @@ public class AccountServiceTest {
     @Test
     void createAccountAndDepositAndBalance() {
         Client client = new Client("C1", "Ana", "NATURAL", "ana@test.com");
-        var account = service.createAccount(client, "0112345678");
+        Account account = service.createAccount(client, "0112345678");
         assertNotNull(account);
         assertEquals(1, client.getAccounts().size());
 
