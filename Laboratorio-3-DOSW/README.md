@@ -64,3 +64,26 @@
 
 
 
+# Reto 5
+
+### Capturas
+
+<div align="center">
+<img src="Laboratorio-3-DOSW/docs/image/reto5.1.png" alt="reto5.1" width="200" style="margin:10px;"/>
+<img src="Laboratorio-3-DOSW/docs/image/reto5.2.png" alt="reto5.2" width="200" style="margin:10px;"/>
+<img src="Laboratorio-3-DOSW/docs/image/reto5.3.png" alt="reto5.3" width="200" style="margin:10px;"/>
+</div>
+
+Todas las mediciones estuvieron en el 85% de medicion, es decir cumplimos anticipadamente con este requerimiento, incluso en PLanning Poker, que tambien tuvo pruebas y tuvo una covertura superior al 95%
+
+## Reflexion del uso de JaCoCo 
+Antes de entrar en materia es importante definir que califica esta metrica 
+Instrucciones: Porcentaje de bytecode ejecutado
+Ramas: Cobertura de decisiones condicionales
+Líneas: Porcentaje de líneas de código ejecutadas
+Métodos: Porcentaje de métodos llamados
+Clases: Porcentaje de clases utilizadas
+
+Dicho lo anterior
+Su importancia radica en la deteccion del codigo no provado, por lo que nos obliga como desarrolladores a hacer pruebas de verdad, es decir significativas, lo que nos lleva a hacer un codigo de mejor calidad y previene las regreciones. asi mismo es un estandar de la industria. 
+Por otro lado nos encontramos en una cobertura superior al 85% por lo que ademas de la calidad garantizamos la ausencia de bugs. en caso de presentar un 60% es acpetable pero no demuestra mucho, mientras que inferior puede ser una alerta.
