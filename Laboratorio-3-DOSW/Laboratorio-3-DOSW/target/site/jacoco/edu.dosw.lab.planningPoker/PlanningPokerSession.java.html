@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlanningPokerSession.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.planningPoker</a> &gt; <span class="el_source">PlanningPokerSession.java</span></div><h1>PlanningPokerSession.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.planningPoker;
+
+import edu.dosw.lab.planningPoker.TeamMemberFactory.TeamMember;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+public class PlanningPokerSession {
+    private List&lt;UserStory&gt; historias;
+    private List&lt;TeamMember&gt; miembros;
+    private Scanner scanner;
+    
+<span class="fc" id="L16">    public PlanningPokerSession(List&lt;UserStory&gt; historias, Scanner scanner) {</span>
+<span class="fc" id="L17">        this.historias = historias;</span>
+<span class="fc" id="L18">        this.scanner = scanner;</span>
+<span class="fc" id="L19">        this.miembros = TeamMemberFactory.createTeamMembers(scanner);</span>
+<span class="fc" id="L20">    }</span>
+    
+    public void iniciarSesion() {
+<span class="fc" id="L23">        System.out.println(&quot;\n=== SESIÓN DE PLANNING POKER ===&quot;);</span>
+<span class="fc" id="L24">        System.out.println(&quot;Valores válidos: 1, 2, 3, 5, 8, 13&quot;);</span>
+<span class="fc" id="L25">        System.out.println(&quot;===============================\n&quot;);</span>
+        
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (UserStory historia : historias) {</span>
+<span class="fc" id="L28">            estimarHistoria(historia);</span>
+<span class="fc" id="L29">        }</span>
+        
+<span class="fc" id="L31">        mostrarResumen();</span>
+<span class="fc" id="L32">    }</span>
+    
+    private void estimarHistoria(UserStory historia) {
+<span class="fc" id="L35">        boolean consensoAlcanzado = false;</span>
+<span class="fc" id="L36">        Map&lt;String, Integer&gt; votos = new HashMap&lt;&gt;();</span>
+        
+<span class="fc" id="L38">        System.out.println(&quot;\n&quot; + historia);</span>
+        
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        while (!consensoAlcanzado) {</span>
+<span class="fc" id="L41">            votos.clear();</span>
+            
+            // Recoger votos
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            for (TeamMember miembro : miembros) {</span>
+<span class="fc" id="L45">                int voto = miembro.votar(historia);</span>
+<span class="fc" id="L46">                votos.put(miembro.getNombre(), voto);</span>
+<span class="fc" id="L47">            }</span>
+            
+            // Verificar consenso
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if (hayConsenso(votos)) {</span>
+                // Todos votaron igual
+<span class="fc" id="L52">                int estimacionFinal = votos.values().iterator().next();</span>
+<span class="fc" id="L53">                historia.setEstimacionFinal(estimacionFinal);</span>
+<span class="fc" id="L54">                System.out.println(&quot;¡Consenso alcanzado! Puntuación final: &quot; + estimacionFinal);</span>
+<span class="fc" id="L55">                consensoAlcanzado = true;</span>
+<span class="fc" id="L56">            } else {</span>
+                // Mostrar votos y repetir
+<span class="fc" id="L58">                System.out.println(&quot;Votos actuales:&quot;);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                for (Map.Entry&lt;String, Integer&gt; entry : votos.entrySet()) {</span>
+<span class="fc" id="L60">                    System.out.println(entry.getKey() + &quot;: &quot; + entry.getValue());</span>
+<span class="fc" id="L61">                }</span>
+<span class="fc" id="L62">                System.out.println(&quot;Votos divergentes – Discutan y vuelvan a votar&quot;);</span>
+            }
+        }
+<span class="fc" id="L65">    }</span>
+    
+    private boolean hayConsenso(Map&lt;String, Integer&gt; votos) {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (votos.isEmpty()) {</span>
+<span class="fc" id="L69">            return false;</span>
+        }
+        
+<span class="fc" id="L72">        Set&lt;Integer&gt; votosUnicos = new HashSet&lt;&gt;(votos.values());</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        return votosUnicos.size() == 1; // Si solo hay un valor único, todos votaron igual</span>
+    }
+    
+    private void mostrarResumen() {
+<span class="fc" id="L77">        System.out.println(&quot;\n=== RESUMEN DE ESTIMACIONES ===&quot;);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (UserStory historia : historias) {</span>
+<span class="fc" id="L79">            System.out.println(&quot;- &quot; + historia.getId() + &quot;: &quot; + historia.getEstimacionFinal() + &quot; puntos&quot;);</span>
+<span class="fc" id="L80">        }</span>
+<span class="fc" id="L81">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

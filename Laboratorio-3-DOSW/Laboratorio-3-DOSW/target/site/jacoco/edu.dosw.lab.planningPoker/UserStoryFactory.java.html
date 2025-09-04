@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserStoryFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.planningPoker</a> &gt; <span class="el_source">UserStoryFactory.java</span></div><h1>UserStoryFactory.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.planningPoker;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Esta clase es una fábrica para crear historias de usuario.
+ * Tiene historias predefinidas de Bankify y puede crear historias personalizadas.
+ * Usa el patrón Factory para organizar la creación de historias de manera centralizada.
+ */
+<span class="nc" id="L11">public class UserStoryFactory {</span>
+    // Matriz con historias predefinidas [id, actor, objetivo, beneficio, atributoCalidad]
+<span class="fc" id="L13">    private static final String[][] HISTORIAS_BANKIFY = {</span>
+        {&quot;HU01&quot;, &quot;cliente&quot;, &quot;crear una cuenta bancaria&quot;, &quot;poder acceder a los servicios financieros&quot;, &quot;Usabilidad&quot;},
+        {&quot;HU02&quot;, &quot;cliente&quot;, &quot;que el sistema valide mi número de cuenta&quot;, &quot;asegurarme de que mi cuenta es válida&quot;, &quot;Confiabilidad&quot;},
+        {&quot;HU03&quot;, &quot;cliente&quot;, &quot;consultar el saldo de mi cuenta&quot;, &quot;conocer mi disponibilidad de fondos&quot;, &quot;Disponibilidad&quot;},
+        {&quot;HU04&quot;, &quot;cliente&quot;, &quot;realizar un depósito en mi cuenta&quot;, &quot;incrementar mi saldo&quot;, &quot;Seguridad&quot;},
+        {&quot;HU05&quot;, &quot;administrador&quot;, &quot;gestionar los bancos registrados&quot;, &quot;asegurar que solo se usen bancos autorizados&quot;, &quot;Mantenibilidad&quot;}
+    };
+    
+    // Crea y devuelve las historias de usuario predefinidas para Bankify
+    /**
+     * Crea y devuelve las historias de usuario predefinidas para Bankify.
+     * Estas son las historias base que siempre están disponibles.
+     * @return Una lista con las 5 historias predefinidas de Bankify
+     */
+    public static List&lt;UserStory&gt; createBankifyUserStories() {
+<span class="fc" id="L28">        List&lt;UserStory&gt; historias = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        for (String[] datos : HISTORIAS_BANKIFY) {</span>
+<span class="fc" id="L30">            historias.add(new UserStory(datos[0], datos[1], datos[2], datos[3], datos[4]));</span>
+        }
+<span class="fc" id="L32">        return historias;</span>
+    }
+    
+    // Permite agregar historias personalizadas
+    public static List&lt;UserStory&gt; createCustomUserStories() {
+<span class="fc" id="L37">        List&lt;UserStory&gt; historias = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L38">        return historias;</span>
+    }
+    
+    // Combina historias predefinidas y personalizadas
+    public static List&lt;UserStory&gt; createAllUserStories() {
+<span class="fc" id="L43">        List&lt;UserStory&gt; todas = createBankifyUserStories();</span>
+<span class="fc" id="L44">        todas.addAll(createCustomUserStories());</span>
+<span class="fc" id="L45">        return todas;</span>
+    }
+    
+    // Método para crear una historia individual
+    /**
+     * Método para crear una historia individual con parámetros específicos.
+     * Útil para agregar historias personalizadas o adicionales.
+     * @param id El identificador único de la historia
+     * @param actor Quién quiere la funcionalidad
+     * @param objetivo Qué quiere hacer
+     * @param beneficio Por qué lo quiere
+     * @param atributoCalidad Qué atributo de calidad se afecta
+     * @return Una nueva instancia de UserStory con los datos proporcionados
+     */
+    public static UserStory createUserStory(String id, String actor, String objetivo, 
+                                           String beneficio, String atributoCalidad) {
+<span class="fc" id="L61">        return new UserStory(id, actor, objetivo, beneficio, atributoCalidad);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

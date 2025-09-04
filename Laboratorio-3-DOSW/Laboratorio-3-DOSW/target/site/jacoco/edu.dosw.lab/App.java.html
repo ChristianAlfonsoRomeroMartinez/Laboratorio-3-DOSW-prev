@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package edu.dosw.lab;
+
+import edu.dosw.lab.bankify.domain.Bank;
+import edu.dosw.lab.bankify.domain.Client;
+import edu.dosw.lab.bankify.repository.AccountRepository;
+import edu.dosw.lab.bankify.repository.BankRepository;
+import edu.dosw.lab.bankify.repository.ClientRepository;
+import edu.dosw.lab.bankify.service.AccountService;
+import edu.dosw.lab.bankify.service.AccountValidator;
+import edu.dosw.lab.bankify.service.ExtendedAccountService;
+import edu.dosw.lab.planningPoker.PlanningPokerMain;
+
+<span class="nc" id="L13">public class App </span>
+{
+    public static void main( String[] args )
+    {
+<span class="nc" id="L17">        System.out.println( &quot;=== SISTEMA BANCARIO EXTENDIDO ===&quot; );</span>
+        
+        // Ejecutar Planning Poker (existente)
+<span class="nc" id="L20">        PlanningPokerMain.ejecutar();</span>
+        
+        // Separador
+<span class="nc" id="L23">        System.out.println(&quot;\n&quot; + &quot;=&quot;.repeat(50));</span>
+<span class="nc" id="L24">        System.out.println(&quot;DEMOSTRACIÓN DEL SISTEMA BANCARIO EXTENDIDO&quot;);</span>
+<span class="nc" id="L25">        System.out.println(&quot;=&quot;.repeat(50));</span>
+    
+        // Configuración del sistema bancario extendido
+<span class="nc" id="L28">        demoBankingSystemExtended();</span>
+<span class="nc" id="L29">    }</span>
+    
+    private static void demoBankingSystemExtended() {
+        try {
+            // 1. Configurar repositorios
+<span class="nc" id="L34">            BankRepository bankRepository = new BankRepository();</span>
+<span class="nc" id="L35">            bankRepository.save(new Bank(&quot;01&quot;, &quot;BANCOLOMBIA&quot;));</span>
+<span class="nc" id="L36">            bankRepository.save(new Bank(&quot;02&quot;, &quot;DAVIVIENDA&quot;));</span>
+<span class="nc" id="L37">            bankRepository.save(new Bank(&quot;03&quot;, &quot;BANCO DE BOGOTÁ&quot;));</span>
+            
+<span class="nc" id="L39">            AccountRepository accountRepository = new AccountRepository();</span>
+<span class="nc" id="L40">            ClientRepository clientRepository = new ClientRepository();</span>
+            
+            // 2. Crear servicios
+<span class="nc" id="L43">            AccountValidator validator = new AccountValidator(bankRepository);</span>
+<span class="nc" id="L44">            AccountService basicService = new AccountService(accountRepository, validator);</span>
+<span class="nc" id="L45">            ExtendedAccountService extendedService = new ExtendedAccountService(</span>
+                basicService, validator, clientRepository, accountRepository);
+
+            // 3. Registrar clientes
+<span class="nc" id="L49">            Client client1 = new Client(&quot;C001&quot;, &quot;Ana García&quot;, &quot;NATURAL&quot;, &quot;ana@test.com&quot;);</span>
+<span class="nc" id="L50">            Client client2 = new Client(&quot;C002&quot;, &quot;Empresa XYZ&quot;, &quot;JURIDICA&quot;, &quot;empresa@xyz.com&quot;);</span>
+<span class="nc" id="L51">            clientRepository.save(client1);</span>
+<span class="nc" id="L52">            clientRepository.save(client2);</span>
+
+<span class="nc" id="L54">            System.out.println(&quot;Clientes registrados exitosamente:&quot;);</span>
+<span class="nc" id="L55">            System.out.println(&quot;- &quot; + client1.getName() + &quot; (ID: &quot; + client1.getId() + &quot;)&quot;);</span>
+<span class="nc" id="L56">            System.out.println(&quot;- &quot; + client2.getName() + &quot; (ID: &quot; + client2.getId() + &quot;)&quot;);</span>
+<span class="nc" id="L57">            System.out.println();</span>
+
+            // 4. Crear cuentas con validaciones extendidas
+<span class="nc" id="L60">            System.out.println(&quot;Creando cuentas bancarias...&quot;);</span>
+            
+            // Cuenta válida
+<span class="nc" id="L63">            extendedService.createAccountWithBusinessRules(&quot;C001&quot;, &quot;0112345678&quot;);</span>
+<span class="nc" id="L64">            System.out.println(&quot;✓ Cuenta 0112345678 creada para Ana García&quot;);</span>
+            
+            // Otra cuenta válida
+<span class="nc" id="L67">            extendedService.createAccountWithBusinessRules(&quot;C002&quot;, &quot;0298765432&quot;);</span>
+<span class="nc" id="L68">            System.out.println(&quot;✓ Cuenta 0298765432 creada para Empresa XYZ&quot;);</span>
+            
+<span class="nc" id="L70">            System.out.println();</span>
+
+            // 5. Realizar operaciones
+<span class="nc" id="L73">            System.out.println(&quot;Realizando operaciones bancarias...&quot;);</span>
+            
+            // Depósito exitoso
+<span class="nc" id="L76">            extendedService.depositWithValidation(&quot;0112345678&quot;, 500.0);</span>
+<span class="nc" id="L77">            System.out.println(&quot;✓ Depósito de $500 en cuenta 0112345678&quot;);</span>
+            
+            // Consulta de saldo
+<span class="nc" id="L80">            double balance = extendedService.getBalanceWithValidation(&quot;0112345678&quot;);</span>
+<span class="nc" id="L81">            System.out.println(&quot;✓ Saldo cuenta 0112345678: $&quot; + balance);</span>
+            
+            // Más operaciones
+<span class="nc" id="L84">            extendedService.depositWithValidation(&quot;0298765432&quot;, 1000.0);</span>
+<span class="nc" id="L85">            System.out.println(&quot;✓ Depósito de $1000 en cuenta 0298765432&quot;);</span>
+            
+<span class="nc" id="L87">            double balance2 = extendedService.getBalanceWithValidation(&quot;0298765432&quot;);</span>
+<span class="nc" id="L88">            System.out.println(&quot;✓ Saldo cuenta 0298765432: $&quot; + balance2);</span>
+            
+<span class="nc" id="L90">            System.out.println();</span>
+
+            // 6. Demostrar validaciones de reglas de negocio
+<span class="nc" id="L93">            System.out.println(&quot;Probando validaciones de reglas de negocio...&quot;);</span>
+            
+            // Intentar crear cuenta con banco no registrado
+            try {
+<span class="nc" id="L97">                extendedService.createAccountWithBusinessRules(&quot;C001&quot;, &quot;9912345678&quot;);</span>
+<span class="nc" id="L98">            } catch (Exception e) {</span>
+<span class="nc" id="L99">                System.out.println(&quot;✗ Validación exitosa: &quot; + e.getMessage());</span>
+<span class="nc" id="L100">            }</span>
+            
+            // Intentar crear cuenta con formato inválido
+            try {
+<span class="nc" id="L104">                extendedService.createAccountWithBusinessRules(&quot;C001&quot;, &quot;01ABC56789&quot;);</span>
+<span class="nc" id="L105">            } catch (Exception e) {</span>
+<span class="nc" id="L106">                System.out.println(&quot;✗ Validación exitosa: &quot; + e.getMessage());</span>
+<span class="nc" id="L107">            }</span>
+            
+            // Intentar crear cuenta duplicada
+            try {
+<span class="nc" id="L111">                extendedService.createAccountWithBusinessRules(&quot;C001&quot;, &quot;0112345678&quot;);</span>
+<span class="nc" id="L112">            } catch (Exception e) {</span>
+<span class="nc" id="L113">                System.out.println(&quot;✗ Validación exitosa: &quot; + e.getMessage());</span>
+<span class="nc" id="L114">            }</span>
+            
+            // Intentar operar con cuenta inexistente
+            try {
+<span class="nc" id="L118">                extendedService.getBalanceWithValidation(&quot;9999999999&quot;);</span>
+<span class="nc" id="L119">            } catch (Exception e) {</span>
+<span class="nc" id="L120">                System.out.println(&quot;✗ Validación exitosa: &quot; + e.getMessage());</span>
+<span class="nc" id="L121">            }</span>
+
+<span class="nc" id="L123">            System.out.println(&quot;\n&quot; + &quot;=&quot;.repeat(50));</span>
+<span class="nc" id="L124">            System.out.println(&quot;DEMOSTRACIÓN COMPLETADA EXITOSAMENTE&quot;);</span>
+<span class="nc" id="L125">            System.out.println(&quot;=&quot;.repeat(50));</span>
+
+<span class="nc" id="L127">        } catch (Exception e) {</span>
+<span class="nc" id="L128">            System.out.println(&quot;Error inesperado: &quot; + e.getMessage());</span>
+<span class="nc" id="L129">            e.printStackTrace();</span>
+<span class="nc" id="L130">        }</span>
+<span class="nc" id="L131">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

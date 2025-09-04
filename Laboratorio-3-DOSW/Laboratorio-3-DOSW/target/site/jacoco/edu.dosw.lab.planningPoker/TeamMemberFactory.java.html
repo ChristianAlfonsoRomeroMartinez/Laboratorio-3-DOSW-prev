@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeamMemberFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.planningPoker</a> &gt; <span class="el_source">TeamMemberFactory.java</span></div><h1>TeamMemberFactory.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.planningPoker;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * Esta clase es una fábrica para crear miembros del equipo.
+ * Es como una máquina que produce objetos TeamMember con la información necesaria.
+ * Usa el patrón Factory para crear los miembros de manera organizada.
+ */
+<span class="nc" id="L12">public class TeamMemberFactory {</span>
+    // Matriz con información de los miembros del equipo [nombre, rol]
+<span class="fc" id="L14">    private static final String[][] MIEMBROS_DATOS = {</span>
+        {&quot;Juana&quot;, &quot;Desarrolladora&quot;},
+        {&quot;Carlos&quot;, &quot;Tester&quot;},
+        {&quot;Christian&quot;, &quot;Analista&quot;}
+    };
+    
+    /**
+     * Este método crea una lista de miembros del equipo usando los datos predefinidos.
+     * Toma la información de la matriz MIEMBROS_DATOS y crea objetos TeamMember.
+     * @param scanner El scanner para que los miembros puedan votar
+     * @return Una lista con todos los miembros del equipo
+     */
+    public static List&lt;TeamMember&gt; createTeamMembers(Scanner scanner) {
+<span class="fc" id="L27">        List&lt;TeamMember&gt; miembros = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for (String[] datos : MIEMBROS_DATOS) {</span>
+<span class="fc" id="L29">            miembros.add(new TeamMember(datos[0], datos[1], scanner));</span>
+        }
+<span class="fc" id="L31">        return miembros;</span>
+    }
+    
+    // Clase interna TeamMember
+    /**
+     * Esta clase representa a un miembro del equipo en la sesión de Planning Poker.
+     * Cada miembro tiene nombre, rol y puede votar en las historias.
+     * Es como un participante en la reunión con sus propias opiniones.
+     */
+    public static class TeamMember {
+        private String nombre;
+        private String rol;
+        private Scanner scanner;
+        
+<span class="fc" id="L45">        public TeamMember(String nombre, String rol, Scanner scanner) {</span>
+<span class="fc" id="L46">            this.nombre = nombre;</span>
+<span class="fc" id="L47">            this.rol = rol;</span>
+<span class="fc" id="L48">            this.scanner = scanner;</span>
+<span class="fc" id="L49">        }</span>
+        
+        public String getNombre() {
+<span class="fc" id="L52">            return nombre;</span>
+        }
+        
+        public String getRol() {
+<span class="fc" id="L56">            return rol;</span>
+        }
+        
+        /**
+         * Este método hace que el miembro vote en una historia.
+         * Pide el voto por consola, valida que sea un número de Fibonacci válido,
+         * y lo devuelve. Si no es válido, pide de nuevo.
+         * @param historia La historia en la que se está votando
+         * @return El voto válido (1, 2, 3, 5, 8, 13)
+         */
+        public int votar(UserStory historia) {
+<span class="fc" id="L67">            int voto = 0;</span>
+<span class="fc" id="L68">            boolean votoValido = false;</span>
+            
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            while (!votoValido) {</span>
+<span class="fc" id="L71">                System.out.printf(&quot;%s (%s), ingresa tu voto (1,2,3,5,8,13): &quot;, nombre, rol);</span>
+                try {
+<span class="fc" id="L73">                    voto = scanner.nextInt();</span>
+<span class="fc" id="L74">                    votoValido = esVotoValido(voto);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">                    if (!votoValido) {</span>
+<span class="fc" id="L76">                        System.out.println(&quot;Valor no válido. Use: 1, 2, 3, 5, 8, 13&quot;);</span>
+                    }
+<span class="fc" id="L78">                } catch (Exception e) {</span>
+<span class="fc" id="L79">                    System.out.println(&quot;Por favor ingresa un número válido&quot;);</span>
+<span class="fc" id="L80">                    scanner.next(); // limpiar buffer</span>
+<span class="fc" id="L81">                }</span>
+            }
+            
+<span class="fc" id="L84">            return voto;</span>
+        }
+        
+        private boolean esVotoValido(int voto) {
+<span class="fc" id="L88">            int[] fibonacci = {1, 2, 3, 5, 8, 13};</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (int fib : fibonacci) {</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                if (voto == fib) {</span>
+<span class="fc" id="L91">                    return true;</span>
+                }
+            }
+<span class="fc" id="L94">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

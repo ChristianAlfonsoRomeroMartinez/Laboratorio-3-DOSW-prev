@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bank.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.bankify.domain</a> &gt; <span class="el_source">Bank.java</span></div><h1>Bank.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.bankify.domain;
+
+/**
+ * Representa un Banco registrado en el sistema.
+ */
+public class Bank {
+    private final String code; // 2 dígitos
+    private String name;
+
+<span class="fc" id="L10">    public Bank(String code, String name) {</span>
+<span class="pc bpc" id="L11" title="2 of 4 branches missed.">        if (code == null || !code.matches(&quot;\\d{2}&quot;)) {</span>
+<span class="nc" id="L12">            throw new IllegalArgumentException(&quot;Bank code must be exactly 2 digits&quot;);</span>
+        }
+<span class="fc" id="L14">        this.code = code;</span>
+<span class="fc" id="L15">        this.name = name;</span>
+<span class="fc" id="L16">    }</span>
+
+    public String getCode() {
+<span class="fc" id="L19">        return code;</span>
+    }
+
+    public String getName() {
+<span class="nc" id="L23">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L27">        this.name = name;</span>
+<span class="nc" id="L28">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

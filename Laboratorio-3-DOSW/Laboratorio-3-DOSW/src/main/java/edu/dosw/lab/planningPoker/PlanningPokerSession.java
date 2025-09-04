@@ -1,0 +1,82 @@
+package edu.dosw.lab.planningPoker;
+
+import edu.dosw.lab.planningPoker.TeamMemberFactory.TeamMember;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+public class PlanningPokerSession {
+    private List<UserStory> historias;
+    private List<TeamMember> miembros;
+    private Scanner scanner;
+    
+    public PlanningPokerSession(List<UserStory> historias, Scanner scanner) {
+        this.historias = historias;
+        this.scanner = scanner;
+        this.miembros = TeamMemberFactory.createTeamMembers(scanner);
+    }
+    
+    public void iniciarSesion() {
+        System.out.println("\n=== SESIÓN DE PLANNING POKER ===");
+        System.out.println("Valores válidos: 1, 2, 3, 5, 8, 13");
+        System.out.println("===============================\n");
+        
+        for (UserStory historia : historias) {
+            estimarHistoria(historia);
+        }
+        
+        mostrarResumen();
+    }
+    
+    private void estimarHistoria(UserStory historia) {
+        boolean consensoAlcanzado = false;
+        Map<String, Integer> votos = new HashMap<>();
+        
+        System.out.println("\n" + historia);
+        
+        while (!consensoAlcanzado) {
+            votos.clear();
+            
+            // Recoger votos
+            for (TeamMember miembro : miembros) {
+                int voto = miembro.votar(historia);
+                votos.put(miembro.getNombre(), voto);
+            }
+            
+            // Verificar consenso
+            if (hayConsenso(votos)) {
+                // Todos votaron igual
+                int estimacionFinal = votos.values().iterator().next();
+                historia.setEstimacionFinal(estimacionFinal);
+                System.out.println("¡Consenso alcanzado! Puntuación final: " + estimacionFinal);
+                consensoAlcanzado = true;
+            } else {
+                // Mostrar votos y repetir
+                System.out.println("Votos actuales:");
+                for (Map.Entry<String, Integer> entry : votos.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
+                System.out.println("Votos divergentes – Discutan y vuelvan a votar");
+            }
+        }
+    }
+    
+    private boolean hayConsenso(Map<String, Integer> votos) {
+        if (votos.isEmpty()) {
+            return false;
+        }
+        
+        Set<Integer> votosUnicos = new HashSet<>(votos.values());
+        return votosUnicos.size() == 1; // Si solo hay un valor único, todos votaron igual
+    }
+    
+    private void mostrarResumen() {
+        System.out.println("\n=== RESUMEN DE ESTIMACIONES ===");
+        for (UserStory historia : historias) {
+            System.out.println("- " + historia.getId() + ": " + historia.getEstimacionFinal() + " puntos");
+        }
+    }
+}

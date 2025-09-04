@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Client.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.bankify.domain</a> &gt; <span class="el_source">Client.java</span></div><h1>Client.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.bankify.domain;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Representa un cliente de Bankify.
+ */
+public class Client {
+    private String id;
+    private String name;
+    private String type;
+    private String email;
+<span class="fc" id="L14">    private final List&lt;Account&gt; accounts = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L16">    public Client(String id, String name, String type, String email) {</span>
+<span class="fc" id="L17">        this.id = id;</span>
+<span class="fc" id="L18">        this.name = name;</span>
+<span class="fc" id="L19">        this.type = type;</span>
+<span class="fc" id="L20">        this.email = email;</span>
+<span class="fc" id="L21">    }</span>
+
+<span class="fc" id="L23">    public String getId() { return id; }</span>
+<span class="nc" id="L24">    public void setId(String id) { this.id = id; }</span>
+
+<span class="nc" id="L26">    public String getName() { return name; }</span>
+<span class="nc" id="L27">    public void setName(String name) { this.name = name; }</span>
+
+<span class="nc" id="L29">    public String getType() { return type; }</span>
+<span class="nc" id="L30">    public void setType(String type) { this.type = type; }</span>
+
+<span class="nc" id="L32">    public String getEmail() { return email; }</span>
+<span class="nc" id="L33">    public void setEmail(String email) { this.email = email; }</span>
+
+    /**
+     * @return lista inmutable de cuentas del cliente.
+     */
+    public List&lt;Account&gt; getAccounts() {
+<span class="fc" id="L39">        return Collections.unmodifiableList(accounts);</span>
+    }
+
+    /** Agrega una cuenta a la lista interna. */
+    public void addAccount(Account account) {
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (account == null) throw new IllegalArgumentException(&quot;account cannot be null&quot;);</span>
+<span class="fc" id="L45">        this.accounts.add(account);</span>
+<span class="fc" id="L46">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

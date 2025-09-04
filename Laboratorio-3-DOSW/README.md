@@ -1,68 +1,66 @@
-# Sistema de Planning Poker para Bankify
+<h1 align="center">Laboratorio 3 - DOSW</h1>
 
-## ¿Qué es este proyecto?
+## Integrantes
 
-Este es un sistema simple de Planning Poker desarrollado en Java para el laboratorio 3 de la materia DOSW. Es como una herramienta para que los equipos de desarrollo estimen el esfuerzo de las historias de usuario de manera colaborativa.
+- Carlos Mario Piedrahita Arango
+- Juana Lozano Chaves
+- Christian Alfonso Romero Martinez
 
-## ¿Cómo funciona?
 
-El sistema simula una reunión de Planning Poker donde varios miembros del equipo votan en historias de usuario usando la secuencia de Fibonacci (1, 2, 3, 5, 8, 13). Si no hay consenso en la primera ronda, se discute y se vota de nuevo hasta que todos estén de acuerdo.
 
-## Patrones de diseño usados
+<h2 align="left" style="color:#2e86de; font-size:2em;">Parte 1: Compilación de Maven</h2>
 
-- **Factory Pattern**: Usamos `UserStoryFactory` y `TeamMemberFactory` para crear objetos de manera organizada y centralizada.
-- **Session Pattern**: `PlanningPokerSession` maneja todo el flujo de la sesión de votación.
-- **Model Pattern**: `UserStory` representa los datos de las historias de usuario.
+---
 
-## Estructura del proyecto
 
-```
-src/main/java/edu/dosw/lab/
-├── App.java                    # Clase principal que inicia todo
-└── planningpoker/
-    ├── PlanningPokerMain.java      # Controla el flujo principal
-    ├── PlanningPokerSession.java   # Maneja la sesión de votación
-    ├── TeamMemberFactory.java      # Crea los miembros del equipo
-    ├── UserStory.java              # Modelo de datos de historias
-    └── UserStoryFactory.java       # Crea las historias de usuario
-```
+<div align="center">
+	<img src="Laboratorio-3-DOSW/docs/image/maven1.png" alt="Maven 1" width="200" style="margin:10px;"/>
+	<img src="Laboratorio-3-DOSW/docs/image/maven2.png" alt="Maven 2" width="200" style="margin:10px;"/>
+	<img src="Laboratorio-3-DOSW/docs/image/maven3.png" alt="Maven 3" width="200" style="margin:10px;"/>
+	<img src="Laboratorio-3-DOSW/docs/image/maven4.png" alt="Maven 4" width="200" style="margin:10px;"/>
+</div>
 
-## Historias de usuario incluidas
+**Evidencias trabajo integrante 2**
+<div align="center">
+	<img src="Laboratorio-3-DOSW/docs/image/Estructura.png" alt="Estructura" width="200" style="margin:10px;"/>
+	<img src="Laboratorio-3-DOSW/docs/image/dependenciasJaCoCo1.png" alt="dependenciasJaCoCo1" width="200" style="margin:10px;"/>
+	<img src="Laboratorio-3-DOSW/docs/image/dependenciasJaCoCo2.png" alt="dependenciasJaCoCo2" width="200" style="margin:10px;"/>
 
-El sistema viene con 5 historias predefinidas de Bankify más una adicional:
+</div>
 
-1. **HU01**: Crear cuenta bancaria
-2. **HU02**: Validar número de cuenta
-3. **HU03**: Consultar saldo
-4. **HU04**: Realizar depósito
-5. **HU05**: Gestionar bancos registrados
-6. **HU06**: Transferir dinero entre cuentas
+<h2 align="left" style="color:#2e86de; font-size:2em;">Parte 2: Hora del Código</h2>
 
-## Miembros del equipo
+**Reto 1**
+**Reglas de Negocio**
+1.	Los números de cuenta deben tener exactamente 10 dígitos.
+2.	Una cuenta es válida únicamente si los dos primeros dígitos corresponden a un banco registrado en el sistema (ejemplo: 01 → Bancolombia, 02 → Davivienda, etc.).
+3.	Los números de cuenta no pueden contener letras ni caracteres especiales, solo números.
+4.	Cada cuenta debe estar asociada a un único cliente registrado en el sistema.
+5.	Una cuenta no puede ser creada si ya existe otra con el mismo número.
+6.	Solo se pueden realizar operaciones (consulta, depósito) sobre cuentas válidas y registradas.
+7.	La consulta de saldo únicamente está permitida si la cuenta existe en el sistema.
 
-- Juana (Desarrolladora)
-- Carlos (Tester)
-- Christian (Analista)
+**Funcionalidades principales**
+1. Creación y validación de cuentas: Se debe poder validar que el número de cuenta cumpla con las reglas de negocio ya antes expuestas y que la cuenta tenga asociado un cliente.  
+2. Consulta de saldo de una cuenta: retornar el saldo actual de una cuenta válida. 
+3. Depósito en cuenta: permitir consignar dinero a una cuenta registrada y actualizar el saldo después del depósito. 
+4. Gestión de bancos registrados: Permitir administrar qué códigos de banco son válidos y validar la existencia del banco mediante el uso de su código. 
 
-## ¿Cómo ejecutar?
+**Actores Principales**
+1. Cliente: persona natural o jurídica que solicita la creación de una cuenta, realiza depósitos y consulta saldos. 
 
-1. Compila el proyecto: `mvn compile`
-2. Ejecuta la aplicación: `java -cp target/classes edu.dosw.lab.App`
+2. Sistema Bankify: plataforma que valida, crea y gestiona las cuentas y operaciones financieras. 
 
-## Tecnologías usadas
+3. Administrador del sistema (futuro): registra o actualiza los bancos válidos en el sistema. 
 
-- **Java**: Lenguaje de programación principal
-- **Maven**: Para gestión de dependencias y build
-- **JUnit**: Para pruebas unitarias (aunque no se usan en este lab)
 
-## ¿Qué aprendí?
+**Precondiciones del Sistema**
 
-Este proyecto me ayudó a entender mejor:
-- Cómo organizar código en paquetes
-- El uso de patrones de diseño simples
-- Manejo de entrada/salida por consola
-- Trabajo con colecciones en Java
-- Separación de responsabilidades en clases
+1. El sistema debe contar con una lista de bancos registrados y sus respectivos códigos de dos dígitos.  
+2. El cliente debe estar registrado en la plataforma para poder abrir una cuenta.  
+3. El sistema debe tener un repositorio seguro donde almacenar cuentas y saldos.  
+4. El sistema debe contar con mecanismos de autenticación para que solo el cliente acceda a su información.  
+5. Debe existir un entorno de pruebas con cobertura (JaCoCo) y análisis estático (SonarQube) configurado para garantizar calidad del software.
 
-¡Es un sistema básico pero funcional para practicar conceptos de POO!</content>
-<parameter name="filePath">c:\Users\Chris\OneDrive\-University\6Semestry\DOSW\Labs\3\support\Laboratorio-3-DOSW-prev\Laboratorio-3-DOSW\README.md
+
+

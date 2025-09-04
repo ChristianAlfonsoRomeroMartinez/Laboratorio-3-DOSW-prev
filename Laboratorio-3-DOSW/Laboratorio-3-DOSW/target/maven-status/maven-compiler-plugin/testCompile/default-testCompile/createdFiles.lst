@@ -1,0 +1,9 @@
+edu\dosw\lab\bankify\AccountValidatorTest.class
+edu\dosw\lab\planningPoker\UserStoryTest.class
+edu\dosw\lab\bankify\AccountServiceTest.class
+edu\dosw\lab\bankify\ExtendedAccountServiceTest.class
+edu\dosw\lab\planningPoker\PlanningPokerSessionTest.class
+edu\dosw\lab\planningPoker\UserStoryFactoryTest.class
+edu\dosw\lab\planningPoker\TeamMemberFactoryTest.class
+edu\dosw\lab\AppTest.class
+edu\dosw\lab\planningPoker\PlanningPokerMainTest.class

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserStory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bankify</a> &gt; <a href="index.source.html" class="el_package">edu.dosw.lab.planningPoker</a> &gt; <span class="el_source">UserStory.java</span></div><h1>UserStory.java</h1><pre class="source lang-java linenums">package edu.dosw.lab.planningPoker;
+
+/**
+ * Esta clase representa una historia de usuario en el sistema.
+ * Es como una tarjeta con la descripción de lo que quiere el usuario.
+ * Tiene toda la información necesaria: quién, qué quiere, por qué y qué atributo de calidad.
+ */
+public class UserStory {
+    private String id;
+    private String actor;
+    private String objetivo;
+    private String beneficio;
+    private String atributoCalidad;
+    private int estimacionFinal;
+    
+    /**
+     * Constructor que crea una nueva historia de usuario con toda su información.
+     * @param id El identificador único de la historia (ej: HU01)
+     * @param actor Quién quiere la funcionalidad (ej: cliente)
+     * @param objetivo Qué quiere hacer el actor
+     * @param beneficio Por qué quiere hacerlo
+     * @param atributoCalidad Qué calidad del sistema se ve afectada
+     */
+<span class="fc" id="L24">    public UserStory(String id, String actor, String objetivo, String beneficio, String atributoCalidad) {</span>
+<span class="fc" id="L25">        this.id = id;</span>
+<span class="fc" id="L26">        this.actor = actor;</span>
+<span class="fc" id="L27">        this.objetivo = objetivo;</span>
+<span class="fc" id="L28">        this.beneficio = beneficio;</span>
+<span class="fc" id="L29">        this.atributoCalidad = atributoCalidad;</span>
+<span class="fc" id="L30">        this.estimacionFinal = 0;</span>
+<span class="fc" id="L31">    }</span>
+    
+    // Getters
+<span class="fc" id="L34">    public String getId() { return id; }</span>
+<span class="fc" id="L35">    public String getActor() { return actor; }</span>
+<span class="fc" id="L36">    public String getObjetivo() { return objetivo; }</span>
+<span class="fc" id="L37">    public String getBeneficio() { return beneficio; }</span>
+<span class="fc" id="L38">    public String getAtributoCalidad() { return atributoCalidad; }</span>
+<span class="fc" id="L39">    public int getEstimacionFinal() { return estimacionFinal; }</span>
+    
+    // Setter para la estimación
+    public void setEstimacionFinal(int estimacionFinal) {
+<span class="fc" id="L43">        this.estimacionFinal = estimacionFinal;</span>
+<span class="fc" id="L44">    }</span>
+    
+    /**
+     * Convierte la historia a un texto legible para mostrar en consola.
+     * Formatea toda la información de manera clara y organizada.
+     * @return Un string con la descripción completa de la historia
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L53">        return String.format(&quot;Historia %s: Como %s, quiero %s, para %s [Atributo: %s]&quot;, </span>
+                            id, actor, objetivo, beneficio, atributoCalidad);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
